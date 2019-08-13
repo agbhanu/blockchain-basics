@@ -1,7 +1,11 @@
-async function TransactionAdapter(txObject,senderPrivateKey,senderAddress,recieverAddress){
-    return await txObject.createTransaction(senderPrivateKey,senderAddress,recieverAddress);
+async function TransactionAdapter(txObject, senderPrivateKey, senderAddress, recieverAddress) {
+    try {
+        return await txObject.createTransaction(senderPrivateKey, senderAddress, recieverAddress);
+    } catch (err) {
+        return new Error(err);
+    }
 }
 
 module.exports = {
-    TransactionAdapter : TransactionAdapter
+    TransactionAdapter: TransactionAdapter
 };

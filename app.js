@@ -2,9 +2,9 @@ const readline = require('readline-sync');
 const mnemonic = require('./mnemonic')
 const seed = require('./seed')
 const keyPair = require('./keyPair')
-const {getName} = require('./utility')
-const {createTransaction} = require('./transaction')
-const {addAddressInChildKeyPairArray} = require('./address')
+const { getName } = require('./utility')
+const { createTransaction } = require('./transaction')
+const { addAddressInChildKeyPairArray } = require('./address')
 
 let mnemonicCode = null;
 let seedKey;
@@ -13,11 +13,11 @@ let parentKeyPair;
 
 const entryPoint = async () => {
     const option = readline.question("Choose Option \n 1. Create new mnemonic \n 2. Use existing mnemonic\n");
-    
+
     // Generate new mnemonic
     if (option == 1) {
         mnemonicCode = mnemonic.getMnemonic().toString();
-        console.log("Mnemonic created : "+mnemonicCode);
+        console.log("Mnemonic created : " + mnemonicCode);
     }
 
     // use exisiting mnemonic
@@ -40,18 +40,22 @@ const entryPoint = async () => {
             const coinName = getName();
 
             // add address property to childKeyPairObject array
-            const childKeyPairwithAddressArray = addAddressInChildKeyPairArray(coinName,childKeyPairArray);
-            
+            const childKeyPairwithAddressArray = addAddressInChildKeyPairArray(coinName, childKeyPairArray);
+
             // print keys, address and derive path
             keyPair.printChildKeyPairArray(childKeyPairwithAddressArray);
 
-            const senderPrivateKey = childKeyPairwithAddressArray[0].childKeyPair.privateKey;
-            const senderAddress = childKeyPairwithAddressArray[0].address;
+            const senderPrivateKey = childKeyPairwithAddressArray[2].childKeyPair.privateKey;
+            const senderAddress = childKeyPairwithAddressArray[2].address;
             const receiverAddress = childKeyPairwithAddressArray[1].address;
 
             // create tx to send ether/bitcoin from one address to another
-            const txHash = await createTransaction(coinName,senderPrivateKey,senderAddress,receiverAddress);
-            console.log(`transaction created successfully : ${txHash}`);
+            try {
+                const txHash = await createTransaction(coinName, senderPrivateKey, senderAddress, receiverAddress);
+                console.log(`transaction created successfully : ${txHash}`);
+            } catch (err) {
+                console.log(err);
+            }
         }
         else {
             console.log("Not a vaild mnemonic")
