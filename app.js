@@ -1,43 +1,38 @@
-const readline = require('readline-sync');
 const mnemonic = require('./mnemonic')
 const seed = require('./seed')
 const keyPair = require('./keyPair')
-const { getName } = require('./utility')
+const userInput = require('./userInput')
 const { createTransaction } = require('./transaction')
 const { addAddressInChildKeyPairArray } = require('./address')
 
-let mnemonicCode = null;
-let seedKey;
-let passphrase;
-let parentKeyPair;
-
 const entryPoint = async () => {
-    const option = readline.question("Choose Option \n 1. Create new mnemonic \n 2. Use existing mnemonic\n");
 
+    let mnemonicCode;
+    const option = userInput.getOptionForMnemonic();
     // Generate new mnemonic
-    if (option == 1) {
+    if (option === 1) {
         mnemonicCode = mnemonic.getMnemonic().toString();
         console.log("Mnemonic created : " + mnemonicCode);
     }
 
     // use exisiting mnemonic
-    else if (option == 2) {
-        userMnemonic = readline.question("Enter existing mnemonic \n");
+    else if (option === 2) {
+        mnemonicCode = userInput.getExistingMnemonic();
+
         if (mnemonic.isValidMnemonicOrNot(userMnemonic)) {
-            mnemonicCode = userMnemonic;
 
             // generate seed
-            seedKey = seed.generateSeed(mnemonicCode);
+            const seedKey = seed.generateSeed(mnemonicCode);
 
             // generate root/parent key pair
-            parentKeyPair = keyPair.createParentKeyPair(seedKey);
+            const parentKeyPair = keyPair.createParentKeyPair(seedKey);
             console.log("Parent private key : " + parentKeyPair.privateExtendedKey);
             console.log("Parent public key : " + parentKeyPair.publicExtendedKey);
 
             // generate child key pairs
             const childKeyPairArray = keyPair.generateChildKeyPairs(parentKeyPair);
 
-            const coinName = getName();
+            const coinName = userInput.getCoinName();
 
             // add address property to childKeyPairObject array
             const childKeyPairwithAddressArray = addAddressInChildKeyPairArray(coinName, childKeyPairArray);
