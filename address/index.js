@@ -7,10 +7,10 @@ const addAddressInChildKeyPairArray = (coinName, childKeyPairArray) => {
     childKeyPairArray.forEach((keyPair) => {
         let address;
         let publicKey = keyPair.childKeyPair.publicKey;
-        if (coinName == 'Bitcoin') {
+        if (coinName === 'Bitcoin') {
             address = AddressAdapter(BitcoinAddress(), publicKey);
         }
-        else if (coinName == 'Ether') {
+        else if (coinName === 'Ether') {
             address = AddressAdapter(EthereumAddress(), publicKey);
         }
         keyPair['address'] = address;

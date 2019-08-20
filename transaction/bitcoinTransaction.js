@@ -17,7 +17,7 @@ function BitcoinTransaction() {
                         return reject(error);
                     } else {
 
-                        if (utxos.length == 0) {
+                        if (utxos.length === 0) {
                             //if no transactions have happened, there is no balance on the address.
                             return reject("You don't have enough Satoshis to cover the miner fee.");
                         }

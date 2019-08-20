@@ -5,7 +5,7 @@ const generateSeed = (mnemonicCode) => {
 
     const userOption = userInput.getOptionForPassphrase();
     let seed;
-    if(userOption == 'yes'){
+    if(userOption === 'yes'){
         const passphrase = userInput.getPassphrase();
         seed = new Mnemonic(mnemonicCode).toHDPrivateKey(passphrase);
     }

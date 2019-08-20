@@ -6,10 +6,10 @@ const createTransaction = async (coinName, senderPrivateKey, senderAddress, rece
 
     let txHash;
     try {
-        if (coinName == 'Bitcoin') {
+        if (coinName === 'Bitcoin') {
             txHash = await TransactionAdapter(BitcoinTransaction(), senderPrivateKey, senderAddress, receiverAddress);
         }
-        else if (coinName == 'Ether') {
+        else if (coinName === 'Ether') {
             txHash = await TransactionAdapter(EthereumTransaction(), senderPrivateKey, senderAddress, receiverAddress)
         }
         return txHash;
