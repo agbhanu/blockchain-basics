@@ -1,5 +1,4 @@
 const Mnemonic = require('bitcore-mnemonic');
-const readline = require('readline-sync');
 
 let mnemonic;
 
@@ -10,8 +9,8 @@ const getMnemonic = (option) => {
 }
 
 // check mnemonic is valid or not
-let isValidMnemonicOrNot = (dummyCode) => {
-    return Mnemonic.isValid(dummyCode);
+let isValidMnemonicOrNot = (mnemonicCode) => {
+    return Mnemonic.isValid(mnemonicCode);
 }
 
 module.exports = {

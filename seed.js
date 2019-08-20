@@ -1,5 +1,4 @@
 const Mnemonic = require('bitcore-mnemonic');
-const mnemonic = require('./mnemonic');
 const userInput = require('./userInput')
 
 const generateSeed = (mnemonicCode) => {
