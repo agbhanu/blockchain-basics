@@ -12,6 +12,18 @@ const getExistingMnemonic = () => {
     return userMnemonic;
 }
 
+const getOptionForPassphrase = () => {
+    const userOption = readline.question("Do you want to add passphrase(y/n) Defualt : yes \n ");
+    if (userOption == 'y' || userOption == 'Y' || userOption == 'yes' || userOption == 'YES')
+        return 'yes';
+    return 'no';
+}
+
+const getPassphrase = () => {
+    const passphrase = readline.question("Enter passphrase : ");
+    return passphrase;
+}
+
 const getCoinName = () => {
 
     const option = readline.question("Choose (Default : Bitcoin) \n 1. Bitcoin \n 2. Ether \n");
@@ -54,7 +66,7 @@ const getChainName = () => {
 const getDerivePath = (algoOption) => {
 
     let derivePath;
-    
+
     if (algoOption == 1) {
         derivePath = readline.question("Enter derive path value \n sample format : (m/44/0/0/0/) \n");
     }
@@ -76,5 +88,7 @@ module.exports = {
     getCoinType: getCoinType,
     getAccountNo: getAccountNo,
     getChainName: getChainName,
-    getDerivePath: getDerivePath
+    getDerivePath: getDerivePath,
+    getOptionForPassphrase: getOptionForPassphrase,
+    getPassphrase: getPassphrase
 }
