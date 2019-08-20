@@ -1,22 +1,13 @@
 const Mnemonic = require('bitcore-mnemonic');
-const readline = require('readline-sync')
 const mnemonic = require('./mnemonic');
-
-
-const getUserOption = () => {
-    const userOption = readline.question("Do you want to add passphrase(y/n) Defualt : yes \n ");
-    if (userOption == 'y' || userOption == 'Y' || userOption == 'yes' || userOption == 'YES')
-        return 'yes';
-    return 'no';
-}
+const userInput = require('./userInput')
 
 const generateSeed = (mnemonicCode) => {
 
-    const userOption = getUserOption();
-    let passphrase = '';
+    const userOption = userInput.getOptionForPassphrase();
     let seed;
     if(userOption == 'yes'){
-        passphrase = readline.question("Enter passphrase : ");
+        const passphrase = userInput.getPassphrase();
         seed = new Mnemonic(mnemonicCode).toHDPrivateKey(passphrase);
     }
     else{
