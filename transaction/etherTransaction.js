@@ -1,5 +1,6 @@
 const Web3 = require('web3')
 const Tx = require('ethereumjs-tx').Transaction
+const userInput = require('../userInput')
 
 function EthereumTransaction() {
     return {
@@ -9,7 +10,7 @@ function EthereumTransaction() {
 
                 const rpcURL = "https://rinkeby.infura.io/3009c74d4930456990ed34ba352440e9";
                 const web3 = new Web3(rpcURL);
-                const txAmount = web3.utils.toWei('0.01', 'ether');
+                const txAmountInEthers = userInput.getEthers();
                 if (web3.utils.toChecksumAddress(senderAddress) && web3.utils.toChecksumAddress(receiverAddress)) {
                     let txHash;
 
@@ -21,14 +22,14 @@ function EthereumTransaction() {
                         from: senderAddress,
                         nonce: web3.utils.toHex(nonce)
                     });
-                    
+
                     if ((balance - txAmount) > 0) {
                         let rawTx = {
                             nonce: web3.utils.toHex(nonce),
                             gasPrice: web3.utils.toHex(gasPrice),
                             gasLimit: web3.utils.toHex(gasEstimate),
                             to: receiverAddress,
-                            value: web3.utils.toHex(web3.utils.toWei('0.01', 'ether'))
+                            value: web3.utils.toHex(web3.utils.toWei(txAmountInEthers, 'ether'))
                         }
 
                         const tx = new Tx(rawTx, { chain: 'rinkeby', hardfork: 'petersburg' })

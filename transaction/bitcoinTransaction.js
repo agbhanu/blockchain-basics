@@ -2,6 +2,7 @@ const bitcoin = require('bitcoinjs-lib')
 const bitcore = require('bitcore-lib')
 const Explorer = require('bitcore-explorers')
 const insight = new Explorer.Insight('testnet')
+const userInput = require('../userInput')
 
 function BitcoinTransaction() {
 
@@ -10,9 +11,8 @@ function BitcoinTransaction() {
             return new Promise((resolve, reject) => {
                 let txHash;
                 let privateKeyWIF;
-                const minorFee = 50000;
-                const txAmount = 10000;
-
+                const minorFee = 10000;
+                const txAmount = (userInput.getBitcoins())*1e8;
                 if (bitcoin.address.toOutputScript(senderAddress, bitcoin.networks.testnet) && bitcoin.address.toOutputScript(receiverAddress, bitcoin.networks.testnet)) {
                     insight.getUnspentUtxos(senderAddress, function (error, utxos) {
 
