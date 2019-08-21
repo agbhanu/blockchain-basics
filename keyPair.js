@@ -1,6 +1,4 @@
 const HDKey = require('hdkey')
-const seed = require('./seed')
-const mnemonic = require('./mnemonic')
 const userInput = require('./userInput')
 
 const createParentKeyPair = (seedKey) => {
