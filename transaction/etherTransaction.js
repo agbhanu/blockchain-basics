@@ -1,6 +1,7 @@
 const Web3 = require('web3')
 const Tx = require('ethereumjs-tx').Transaction
 const userInput = require('../userInput')
+const dotenv = require('dotenv').config()
 
 function EthereumTransaction() {
     return {
@@ -8,20 +9,25 @@ function EthereumTransaction() {
 
             return new Promise(async (resolve, reject) => {
 
-                const rpcURL = "https://rinkeby.infura.io/3009c74d4930456990ed34ba352440e9";
+                const rpcURL = process.env.TESTNET_PROVIDER_ETHEREUM;
                 const web3 = new Web3(rpcURL);
                 const txAmountInEthers = userInput.getEthers();
+                const txAmount = web3.utils.toWei(txAmountInEthers, 'ether');
                 if (web3.utils.toChecksumAddress(senderAddress) && web3.utils.toChecksumAddress(receiverAddress)) {
                     let txHash;
 
-                    const balance = await web3.eth.getBalance(senderAddress);
-                    const gasPrice = await web3.eth.getGasPrice();
-                    const nonce = await web3.eth.getTransactionCount(senderAddress);
-                    const gasEstimate = await web3.eth.estimateGas({
-                        to: receiverAddress,
-                        from: senderAddress,
-                        nonce: web3.utils.toHex(nonce)
-                    });
+                    try {
+                        const balance = await web3.eth.getBalance(senderAddress);
+                        const gasPrice = await web3.eth.getGasPrice();
+                        const nonce = await web3.eth.getTransactionCount(senderAddress);
+                        const gasEstimate = await web3.eth.estimateGas({
+                            to: receiverAddress,
+                            from: senderAddress,
+                            nonce: web3.utils.toHex(nonce)
+                        });
+                    } catch (err) {
+                        console.log(err);
+                    }
 
                     if ((balance - txAmount) > 0) {
                         let rawTx = {
@@ -29,7 +35,7 @@ function EthereumTransaction() {
                             gasPrice: web3.utils.toHex(gasPrice),
                             gasLimit: web3.utils.toHex(gasEstimate),
                             to: receiverAddress,
-                            value: web3.utils.toHex(web3.utils.toWei(txAmountInEthers, 'ether'))
+                            value: web3.utils.toHex(txAmount)
                         }
 
                         const tx = new Tx(rawTx, { chain: 'rinkeby', hardfork: 'petersburg' })
