@@ -6,20 +6,27 @@ function EthereumTransaction() {
         createTransaction: (senderPrivateKey, senderAddress, receiverAddress) => {
 
             return new Promise(async (resolve, reject) => {
-                let txHash;
+
                 const rpcURL = "https://rinkeby.infura.io/3009c74d4930456990ed34ba352440e9";
                 const web3 = new Web3(rpcURL);
                 const txAmount = web3.utils.toWei('0.01', 'ether');
+                if (web3.utils.toChecksumAddress(senderAddress) && web3.utils.toChecksumAddress(receiverAddress)) {
+                    let txHash;
 
-                const balance = await web3.eth.getBalance(senderAddress);
-                //console.log(balance);
-
-                if ((balance - txAmount) > 0) {
-                    web3.eth.getTransactionCount(senderAddress, (err, txCount) => {
+                    const balance = await web3.eth.getBalance(senderAddress);
+                    const gasPrice = await web3.eth.getGasPrice();
+                    const nonce = await web3.eth.getTransactionCount(senderAddress);
+                    const gasEstimate = await web3.eth.estimateGas({
+                        to: receiverAddress,
+                        from: senderAddress,
+                        nonce: web3.utils.toHex(nonce)
+                    });
+                    
+                    if ((balance - txAmount) > 0) {
                         let rawTx = {
-                            nonce: web3.utils.toHex(txCount),
-                            gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
-                            gasLimit: web3.utils.toHex(21000),
+                            nonce: web3.utils.toHex(nonce),
+                            gasPrice: web3.utils.toHex(gasPrice),
+                            gasLimit: web3.utils.toHex(gasEstimate),
                             to: receiverAddress,
                             value: web3.utils.toHex(web3.utils.toWei('0.01', 'ether'))
                         }
@@ -41,9 +48,11 @@ function EthereumTransaction() {
                                 return resolve(txHash);
                             }
                         });
-                    });
-                }else{
-                    return reject("Not enough amount in wallet");
+                    } else {
+                        return reject("Not enough amount in wallet");
+                    }
+                } else {
+                    return reject("Sender or reciever address is not valid");
                 }
 
             })
