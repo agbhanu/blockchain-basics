@@ -41,11 +41,10 @@ const getAlgoOption = () => {
 }
 const getCoinType = () => {
 
-    let cointType;
-    cointType = readline.question("Choose (Default : BitCoin) \n 1. BitCoin \n 2. Ethereum \n");
-    if (Number(cointType) === 1)
+    const coinType = readline.question("Choose (Default : BitCoin) \n 1. BitCoin \n 2. Ethereum \n");
+    if (Number(coinType) === 1)
         return 0;
-    else if (Number(cointType) === 2)
+    else if (Number(coinType) === 2)
         return 60;
     return 0;
 }
@@ -74,10 +73,19 @@ const getDerivePath = (algoOption) => {
         let coinType = getCoinType();
         let accountNo = getAccountNo();
         let chainName = getChainName();
-        let derivePath = 'm/44/' + coinType + '/' + accountNo + '/' + chainName + '/';
-        derivePath = getDerivePath();
+        derivePath = 'm/44/' + coinType + '/' + accountNo + '/' + chainName + '/';
     }
     return derivePath;
+}
+
+const getEthers = () => {
+    const ethers = readline.question("Enter amount want to send (in ethers):");
+    return ethers;
+}
+
+const getBitcoins = () => {
+    const bitcoins = readline.question("Enter amount want to send (in bitcoins):");
+    return bitcoins;
 }
 
 module.exports = {
@@ -90,5 +98,7 @@ module.exports = {
     getChainName: getChainName,
     getDerivePath: getDerivePath,
     getOptionForPassphrase: getOptionForPassphrase,
-    getPassphrase: getPassphrase
+    getPassphrase: getPassphrase,
+    getEthers : getEthers,
+    getBitcoins : getBitcoins
 }
