@@ -4,6 +4,7 @@
   "description": "mnemonic and key pair generation",
   "main": "app.js",
   "dependencies": {
+    "axios": "^0.19.0",
     "bip32": "^2.0.4",
     "bitcoinjs-lib": "^5.1.3",
     "bitcore-explorers": "^1.0.1",
@@ -11,6 +12,7 @@
     "bitcore-mnemonic": "^8.6.0",
     "bs58": "^4.0.1",
     "buffer": "^5.2.1",
+    "dotenv": "^8.1.0",
     "ethereum-public-key-to-address": "0.0.1",
     "ethereumjs-tx": "^2.1.0",
     "hdkey": "^1.1.1",
