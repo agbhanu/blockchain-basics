@@ -19,7 +19,7 @@ const entryPoint = async () => {
     else if (option === 2) {
         mnemonicCode = userInput.getExistingMnemonic();
 
-        if (mnemonic.isValidMnemonicOrNot(userMnemonic)) {
+        if (mnemonic.isValidMnemonicOrNot(mnemonicCode)) {
 
             // generate seed
             const seedKey = seed.generateSeed(mnemonicCode);
@@ -40,8 +40,8 @@ const entryPoint = async () => {
             // print keys, address and derive path
             keyPair.printChildKeyPairArray(childKeyPairwithAddressArray);
 
-            const senderPrivateKey = childKeyPairwithAddressArray[2].childKeyPair.privateKey;
-            const senderAddress = childKeyPairwithAddressArray[2].address;
+            const senderPrivateKey = childKeyPairwithAddressArray[0].childKeyPair.privateKey;
+            const senderAddress = childKeyPairwithAddressArray[0].address;
             const receiverAddress = childKeyPairwithAddressArray[1].address;
 
             // create tx to send ether/bitcoin from one address to another
