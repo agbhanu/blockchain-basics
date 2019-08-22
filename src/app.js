@@ -2,8 +2,8 @@ import * as mnemonic from './mnemonic'
 import * as seed from './seed'
 import * as keyPair from './keyPair'
 import * as userInput from './userInput'
-import {createTransaction} from './transaction'
-import {addAddressInChildKeyPairArray} from './address'
+import { createTransaction } from './transaction'
+import { addAddressInChildKeyPairArray } from './address'
 
 const entryPoint = async () => {
 
@@ -34,18 +34,17 @@ const entryPoint = async () => {
 
             //console.log(userInput);
             const coinName = userInput.getCoinName();
-
+            //console.log(coinName);
             // add address property to childKeyPairObject array
-            const childKeyPairwithAddressArray = addAddressInChildKeyPairArray(coinName, childKeyPairArray);
-
-            // print keys, address and derive path
-            keyPair.printChildKeyPairArray(childKeyPairwithAddressArray);
-
-            const senderPrivateKey = childKeyPairwithAddressArray[0].childKeyPair.privateKey;
-            const senderAddress = childKeyPairwithAddressArray[0].address;
-            const receiverAddress = childKeyPairwithAddressArray[1].address;
-            // create tx to send ether/bitcoin from one address to another
             try {
+                const childKeyPairwithAddressArray = addAddressInChildKeyPairArray(coinName, childKeyPairArray);
+                // print keys, address and derive path
+                keyPair.printChildKeyPairArray(childKeyPairwithAddressArray);
+
+                const senderPrivateKey = childKeyPairwithAddressArray[0].childKeyPair.privateKey;
+                const senderAddress = childKeyPairwithAddressArray[0].address;
+                const receiverAddress = childKeyPairwithAddressArray[1].address;
+                // create tx to send ether/bitcoin from one address to another
                 const txHash = await createTransaction(coinName, senderPrivateKey, senderAddress, receiverAddress);
                 console.log(`transaction created successfully : ${txHash}`);
             } catch (err) {
