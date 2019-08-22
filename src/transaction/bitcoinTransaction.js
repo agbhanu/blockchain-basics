@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import axios from 'axios'
 import WAValidator from 'wallet-address-validator'
-
+import BN from 'bignumber.js'
 
 export function BitcoinTransaction() {
 
@@ -17,13 +17,15 @@ export function BitcoinTransaction() {
 
                 let txHash;
                 const privateKeyWIF = bitcore.PrivateKey.fromWIF(senderPrivateKey.toString('hex'));
-                const txAmount = (userInput.getBitcoins()) * 1e8;
+
+                // convert bitcoins to sathosis
+                const txAmount = (new BN(userInput.getBitcoins())).multipliedBy(1e8).toNumber();
 
                 // check amount entered correctly or not
                 if(isNaN(txAmount)){
                     return reject('Not valid amount')
                 }
-                
+
                 let minerFee;
                 try {
                     const feePerByte = await getMiningFeePerByte();
@@ -88,7 +90,6 @@ const getEstimatedTxSize = (senderAddress, receiverAddress, senderPrivateKey, tx
         if (validSenderAddress && validReceiverAddress) {
             insight.getUnspentUtxos(senderAddress, (error, utxos) => {
 
-                console.log(utxos);
                 if (error)
                     return reject(error);
 
