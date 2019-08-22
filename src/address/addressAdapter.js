@@ -1,23 +1,17 @@
-import {BitcoinAddress} from './bitcoinAddress'
-import {EthereumAddress} from './ethereumAddress'
-
-// enum to reperesent different coin types
-const CoinName = Object.freeze({
-    BITCOIN: 'Bitcoin',
-    ETHER: 'Ether'
-})
+import * as constants from '../constants'
 
 export function AddressAdapter(coinName, childKeyPairArray) {
 
     let childKeyPairArrayWithAddress = childKeyPairArray.map((keyPair) => {
         let address;
         let publicKey = keyPair.childKeyPair.publicKey;
-        if (coinName === CoinName.BITCOIN) {
-            address = BitcoinAddress().getAddressFromPublicKey(publicKey);
+
+        // check user choose correct coin name
+        if(!constants.CoinAddressMap.hasOwnProperty(coinName)){
+            throw new Error('Not a valid coin name');
         }
-        else if (coinName === CoinName.ETHER) {
-            address = EthereumAddress().getAddressFromPublicKey(publicKey);
-        }
+
+        address = constants.CoinAddressMap[coinName](publicKey);
         keyPair['address'] = address;
         return keyPair;
     })
