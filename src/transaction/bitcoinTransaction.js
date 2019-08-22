@@ -8,6 +8,7 @@ dotenv.config()
 import axios from 'axios'
 import WAValidator from 'wallet-address-validator'
 import BN from 'bignumber.js'
+import * as constants from '../constants'
 
 export function BitcoinTransaction() {
 
@@ -24,6 +25,11 @@ export function BitcoinTransaction() {
                 // check amount entered correctly or not
                 if(isNaN(txAmount)){
                     return reject('Not valid amount')
+                }
+
+                // check tx amount should be greater than dust value
+                if(txAmount<constants.DUST_VALUE){
+                    return reject('Amount want to send is too less ( please send more than 600 satoshis)');
                 }
 
                 let minerFee;
