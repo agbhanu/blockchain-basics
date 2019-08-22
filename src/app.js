@@ -1,9 +1,9 @@
-const mnemonic = require('./mnemonic')
-const seed = require('./seed')
-const keyPair = require('./keyPair')
-const userInput = require('./userInput')
-const { createTransaction } = require('./transaction')
-const { addAddressInChildKeyPairArray } = require('./address')
+import * as mnemonic from './mnemonic'
+import * as seed from './seed'
+import * as keyPair from './keyPair'
+import * as userInput from './userInput'
+import {createTransaction} from './transaction'
+import {addAddressInChildKeyPairArray} from './address'
 
 const entryPoint = async () => {
 
@@ -32,6 +32,7 @@ const entryPoint = async () => {
             // generate child key pairs
             const childKeyPairArray = keyPair.generateChildKeyPairs(parentKeyPair);
 
+            //console.log(userInput);
             const coinName = userInput.getCoinName();
 
             // add address property to childKeyPairObject array
@@ -43,7 +44,6 @@ const entryPoint = async () => {
             const senderPrivateKey = childKeyPairwithAddressArray[0].childKeyPair.privateKey;
             const senderAddress = childKeyPairwithAddressArray[0].address;
             const receiverAddress = childKeyPairwithAddressArray[1].address;
-
             // create tx to send ether/bitcoin from one address to another
             try {
                 const txHash = await createTransaction(coinName, senderPrivateKey, senderAddress, receiverAddress);

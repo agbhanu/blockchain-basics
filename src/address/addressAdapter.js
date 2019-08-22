@@ -1,5 +1,5 @@
-const { BitcoinAddress } = require('./bitcoinAddress')
-const { EthereumAddress } = require('./ethereumAddress')
+import {BitcoinAddress} from './bitcoinAddress'
+import {EthereumAddress} from './ethereumAddress'
 
 // enum to reperesent different coin types
 const CoinName = Object.freeze({
@@ -7,7 +7,7 @@ const CoinName = Object.freeze({
     ETHER: 'Ether'
 })
 
-function AddressAdapter(coinName, childKeyPairArray) {
+export function AddressAdapter(coinName, childKeyPairArray) {
 
     let childKeyPairArrayWithAddress = childKeyPairArray.map((keyPair) => {
         let address;
@@ -22,8 +22,4 @@ function AddressAdapter(coinName, childKeyPairArray) {
         return keyPair;
     })
     return childKeyPairArrayWithAddress;
-}
-
-module.exports = {
-    AddressAdapter: AddressAdapter
 }

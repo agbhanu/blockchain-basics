@@ -1,12 +1,13 @@
-const bitcoin = require('bitcoinjs-lib')
-const bitcore = require('bitcore-lib')
-const Explorer = require('bitcore-explorers')
+import * as bitcoin from'bitcoinjs-lib'
+import bitcore from 'bitcore-lib'
+import Explorer from 'bitcore-explorers'
 const insight = new Explorer.Insight('testnet')
-const userInput = require('../userInput')
-const dotenv = require('dotenv').config()
-const axios = require('axios')
+import * as userInput from '../userInput'
+import dotenv from 'dotenv'
+dotenv.config()
+import axios from 'axios'
 
-function BitcoinTransaction() {
+export function BitcoinTransaction() {
 
     return {
         createTransaction: (senderPrivateKey, senderAddress, receiverAddress) => {
@@ -141,8 +142,4 @@ const getMiningFeePerByte = async () => {
     const feeObj = await axios.get(process.env.MINOR_FEE_CALCULATOR);
     //console.log(feeObj.data.halfHourFee);
     return feeObj.data.halfHourFee;
-}
-
-module.exports = {
-    BitcoinTransaction: BitcoinTransaction
 }

@@ -1,7 +1,7 @@
-const Mnemonic = require('bitcore-mnemonic');
-const userInput = require('./userInput')
+import Mnemonic from 'bitcore-mnemonic'
+import * as userInput from './userInput'
 
-const generateSeed = (mnemonicCode) => {
+export const generateSeed = (mnemonicCode) => {
 
     const userOption = userInput.getOptionForPassphrase();
     let seed;
@@ -14,8 +14,4 @@ const generateSeed = (mnemonicCode) => {
     }
 
     return seed;
-}
-
-module.exports = {
-    generateSeed
 }

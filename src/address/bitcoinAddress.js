@@ -1,7 +1,7 @@
-const bitcoin = require('bitcoinjs-lib')
-const TestNet = bitcoin.networks.testnet;
+import * as bitcoin from 'bitcoinjs-lib'
 
-function BitcoinAddress() {
+const TestNet = bitcoin.networks.testnet;
+export function BitcoinAddress() {
 
     return {
 
@@ -14,8 +14,4 @@ function BitcoinAddress() {
             return address;
         }
     };
-}
-
-module.exports = {
-    BitcoinAddress: BitcoinAddress
 }

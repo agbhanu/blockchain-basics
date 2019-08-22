@@ -1,13 +1,13 @@
-const HDKey = require('hdkey')
-const userInput = require('./userInput')
+import HDKey from 'hdkey'
+import * as userInput from './userInput'
 
-const createParentKeyPair = (seedKey) => {
+export const createParentKeyPair = (seedKey) => {
 
     let masterKeyObj = HDKey.fromMasterSeed(Buffer.from(seedKey.toString(), 'hex'));
     return masterKeyObj;
 }
 
-const generateChildKeyPairs = (parentKeyPair) => {
+export const generateChildKeyPairs = (parentKeyPair) => {
 
     let childKeyPairArray = [];
     let algoOption = userInput.getAlgoOption();
@@ -25,7 +25,7 @@ const generateChildKeyPairs = (parentKeyPair) => {
     return childKeyPairArray;
 }
 
-const printChildKeyPairArray = (childKeyPairArray) => {
+export const printChildKeyPairArray = (childKeyPairArray) => {
 
     let length = childKeyPairArray.length;
     for (let index = 0; index < length; index += 1) {
@@ -36,12 +36,4 @@ const printChildKeyPairArray = (childKeyPairArray) => {
         console.log('Address : '+ childKeyPairObj.address);
         console.log('------------------------------------------------------------------------------');
     }
-}
-
-
-
-module.exports = {
-    createParentKeyPair,
-    generateChildKeyPairs,
-    printChildKeyPairArray
 }
