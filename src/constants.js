@@ -20,3 +20,5 @@ export const CoinName = Object.freeze({
     2: 'Ether',
     default: null
 })
+
+export const DUST_VALUE = 600
