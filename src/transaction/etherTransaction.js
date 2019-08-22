@@ -36,7 +36,7 @@ export function EthereumTransaction() {
 
             if ((balance - txAmount) > 0) {
               let rawTx = {
-                nonce: web3.utils.toHex(nonce),
+                nonce: web3.utils.toHex(nonce+1),
                 gasPrice: web3.utils.toHex(gasPrice),
                 gasLimit: web3.utils.toHex(gasEstimate),
                 to: receiverAddress,
