@@ -1,4 +1,5 @@
 import readline from 'readline-sync'
+import * as constants from './constants'
 
 export const getOptionForMnemonic = () => {
 
@@ -27,9 +28,7 @@ export const getPassphrase = () => {
 export const getCoinName = () => {
 
     const option = readline.question("Choose (Default : Bitcoin) \n 1. Bitcoin \n 2. Ether \n");
-    if (Number(option) === 2)
-        return 'Ether';
-    return 'Bitcoin';
+    return constants.CoinName[option] || CoinName['default']
 }
 
 export const getAlgoOption = () => {
