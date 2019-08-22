@@ -13,6 +13,12 @@ export function EthereumTransaction() {
         const rpcURL = process.env.TESTNET_PROVIDER_ETHEREUM;
         const web3 = new Web3(rpcURL);
         const txAmountInEthers = userInput.getEthers();
+
+        // check amount entered correctly or not
+        if(isNaN(txAmountInEthers)){
+          return reject('Not valid amount');
+        }
+
         const txAmount = web3.utils.toWei(txAmountInEthers, 'ether');
         if (web3.utils.toChecksumAddress(senderAddress) && web3.utils.toChecksumAddress(receiverAddress)) {
           let txHash;

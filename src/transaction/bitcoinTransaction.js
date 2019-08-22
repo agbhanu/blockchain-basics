@@ -18,6 +18,12 @@ export function BitcoinTransaction() {
                 let txHash;
                 const privateKeyWIF = bitcore.PrivateKey.fromWIF(senderPrivateKey.toString('hex'));
                 const txAmount = (userInput.getBitcoins()) * 1e8;
+
+                // check amount entered correctly or not
+                if(isNaN(txAmount)){
+                    return reject('Not valid amount')
+                }
+                
                 let minerFee;
                 try {
                     const feePerByte = await getMiningFeePerByte();
