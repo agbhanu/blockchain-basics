@@ -4,7 +4,7 @@ import {CoinTransactionMap} from '../constants'
 
 export async function TransactionAdapter(coinName, senderPrivateKey, senderAddress, recieverAddress) {
 
-    if(!CoinAddressMap.hasOwnProperty(coinName)){
+    if(!CoinTransactionMap.hasOwnProperty(coinName)){
         throw new Error('Not a valid coin name');
     }
 
