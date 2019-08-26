@@ -70,9 +70,9 @@ export const getDerivePath = (algoOption) => {
         derivePath = readline.question("Enter derive path value \n sample format : (m/44/0/0/0/) \n");
     }
     else {
-        let coinType = getCoinType();
-        let accountNo = getAccountNo();
-        let chainName = getChainName();
+        const coinType = getCoinType();
+        const accountNo = getAccountNo();
+        const chainName = getChainName();
         derivePath = 'm/44/' + coinType + '/' + accountNo + '/' + chainName + '/';
     }
     return derivePath;
