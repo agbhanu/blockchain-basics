@@ -7,7 +7,7 @@ export function BitcoinAddress() {
 
         getAddressFromPublicKey: (publicKey) => {
 
-            let { address } = bitcoin.payments.p2pkh({
+            const { address } = bitcoin.payments.p2pkh({
                 pubkey: publicKey,
                 network: TestNet
             });

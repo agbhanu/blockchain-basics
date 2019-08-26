@@ -50,12 +50,12 @@ export const getCoinType = () => {
 }
 
 export const getAccountNo = () => {
-    let accountNo = readline.question("Enter Account Number Index:");
+    const accountNo = readline.question("Enter Account Number Index:");
     return accountNo;
 }
 
 export const getChainName = () => {
-    let chainNameOption = readline.question("Choose (Default : External) \n 1. External(0) \n 2. Internal(1) \n");
+    const chainNameOption = readline.question("Choose (Default : External) \n 1. External(0) \n 2. Internal(1) \n");
 
     if (Number(chainNameOption) === 2)
         return 1;
