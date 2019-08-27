@@ -34,8 +34,10 @@ const entryPoint = async () => {
       console.log("Parent private key : " + parentKeyPair.privateExtendedKey);
       console.log("Parent public key : " + parentKeyPair.publicExtendedKey);
 
+      const algoOption = userInput.getAlgoOption();
+      const derivePath = userInput.getDerivePath(algoOption);
       // generate child key pairs
-      const childKeyPairArray = keyPair.generateChildKeyPairs(parentKeyPair);
+      const childKeyPairArray = keyPair.generateChildKeyPairs(parentKeyPair,derivePath);
 
       const coinName = userInput.getCoinName();
       // add address property to childKeyPairObject array
