@@ -27,7 +27,7 @@ export const createEthereumTransaction = (senderPrivateKey, senderAddress, recei
       const balance = await getBalance(web3, senderAddress);
       const gasPrice = await web3.eth.getGasPrice();
       const nonce = await getNonce(web3, senderAddress);
-      const gasLimit = await getEstimateGas(web3, senderAddress, receiverAddress, nonce);
+      const gasLimit = await getEstimateGas(web3, senderAddress, receiverAddress, nonce, txAmount);
       const minerFee = gasPrice * gasLimit;
 
       if ((balance - txAmount - minerFee) < 0) {
@@ -37,7 +37,7 @@ export const createEthereumTransaction = (senderPrivateKey, senderAddress, recei
       const tx = getTx(web3, nonce, gasPrice, gasLimit, receiverAddress, txAmount);
       tx.sign(senderPrivateKey)
       const serializedTx = getSerialzedTx(tx);
-      const txHash = await broadcastTx(web3, serializedTx);
+      const txHash = (await broadcastTx(web3, serializedTx));
       return resolve(txHash);
     } catch (err) {
       return reject(err);
@@ -55,14 +55,14 @@ export const isValidAddress = (web3, address) => {
 
 export const getNonce = async (web3, senderAddress) => {
   const nonce = await web3.eth.getTransactionCount(senderAddress);
-  return (nonce + 1);
+  return (nonce);
 }
 
-export const getEstimateGas = async (web3, senderAddress, receiverAddress, nonce) => {
+export const getEstimateGas = async (web3, senderAddress, receiverAddress, nonce, value) => {
   const estimatedGas = await web3.eth.estimateGas({
     to: receiverAddress,
     from: senderAddress,
-    nonce: nonce
+    value: value
   });
   return estimatedGas;
 }
@@ -98,6 +98,6 @@ export const broadcastTx = (web3, serializedTx) => {
         throw new Error(err);
       }
       return resolve(txHash);
-    });
+    }).on('error',(error)=> {console.log("Tx Receipt unavailable")});
   })
 }
