@@ -1,5 +1,4 @@
 import HDKey from 'hdkey'
-import * as userInput from './userInput'
 
 export const createParentKeyPair = (seedKey) => {
 
@@ -7,12 +6,9 @@ export const createParentKeyPair = (seedKey) => {
   return masterKeyObj;
 }
 
-export const generateChildKeyPairs = (parentKeyPair,derivePath) => {
+export const generateChildKeyPairs = (parentKeyPair, derivePath) => {
 
   const childKeyPairArray = [];
-  // const algoOption = userInput.getAlgoOption();
-  // const derivePath = userInput.getDerivePath(algoOption);
-
 
   for (let addressIndex = 0; addressIndex < 10; addressIndex += 1) {
 
