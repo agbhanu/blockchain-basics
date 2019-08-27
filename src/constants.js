@@ -22,6 +22,7 @@ export const EXISTING_MNEMONIC = 'Existing Mnemonic';
 export const ETHEREUM_NETWORK = process.env.BLOCKCHAIN_ENV === "Development" ? 'rinkeby' : 'mainnet';
 export const BITCOIN_NETWORK = process.env.BLOCKCHAIN_ENV === "Development" ? 'testnet' : 'mainnet';
 export const BITCOIN_ADDRESS_NETWORK = process.env.BLOCKCHAIN_ENV === "Development" ? networks.testnet : networks.bitcoin;
+
 export const MnemonicOption = Object.freeze({
   1: NEW_MNEMONIC,
   2: EXISTING_MNEMONIC,
