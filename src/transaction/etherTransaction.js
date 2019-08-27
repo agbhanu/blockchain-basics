@@ -28,9 +28,9 @@ export const createEthereumTransaction = (senderPrivateKey, senderAddress, recei
       const gasPrice = await web3.eth.getGasPrice();
       const nonce = await getNonce(web3, senderAddress);
       const gasLimit = await getEstimateGas(web3, senderAddress, receiverAddress, nonce);
-      const minerFee = gasPrice*gasLimit;
+      const minerFee = gasPrice * gasLimit;
 
-      if ((balance - txAmount-minerFee) < 0) {
+      if ((balance - txAmount - minerFee) < 0) {
         throw new Error("Not enough amount in wallet");
       }
 
@@ -83,7 +83,7 @@ export const getTx = (web3, nonce, gasPrice, gasLimit, to, value) => {
     to: to,
     value: web3.utils.toHex(value)
   }
-  return new Tx(rawTx, { chain: ETHEREUM_NETWORK});
+  return new Tx(rawTx, { chain: ETHEREUM_NETWORK });
 }
 
 export const getSerialzedTx = (tx) => {

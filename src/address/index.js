@@ -1,5 +1,5 @@
-import {AddressAdapter} from './addressAdapter'
+import { AddressAdapter } from './addressAdapter'
 
 export const addAddressInChildKeyPairArray = (coinName, childKeyPairArray) => {
-    return AddressAdapter(coinName,childKeyPairArray);
+  return AddressAdapter(coinName, childKeyPairArray);
 }
