@@ -4,7 +4,7 @@ import * as constants from './constants'
 export const getOptionForMnemonic = () => {
 
     const option = Number(readline.question("Choose Option \n 1. Create new mnemonic \n 2. Use existing mnemonic\n"));
-    return option;
+    return constants.MnemonicOption[option] || constants.MnemonicOption['default'];
 }
 
 export const getExistingMnemonic = () => {
@@ -28,25 +28,19 @@ export const getPassphrase = () => {
 export const getCoinName = () => {
 
     const option = readline.question("Choose (Default : Bitcoin) \n 1. Bitcoin \n 2. Ether \n");
-    return constants.CoinName[option] || CoinName['default']
+    return constants.CoinName[option] || constants.CoinName['default']
 }
 
 export const getAlgoOption = () => {
 
     const algoOption = readline.question("Choose (Default : BIP32) \n 1. BIP32 \n 2. BIP44 \n");
-    if (Number(algoOption) === 2)
-        return 2;
-    return 1;
+    return constants.AlgoOption[algoOption] || constants.AlgoOption['default'];
 }
 
 export const getCoinType = () => {
 
     const coinType = readline.question("Choose (Default : BitCoin) \n 1. BitCoin \n 2. Ethereum \n");
-    if (Number(coinType) === 1)
-        return 0;
-    else if (Number(coinType) === 2)
-        return 60;
-    return 0;
+    return constants.CoinType[coinType] || constants.CoinType['default'];
 }
 
 export const getAccountNo = () => {
@@ -56,17 +50,14 @@ export const getAccountNo = () => {
 
 export const getChainName = () => {
     const chainNameOption = readline.question("Choose (Default : External) \n 1. External(0) \n 2. Internal(1) \n");
-
-    if (Number(chainNameOption) === 2)
-        return 1;
-    return 0;
+    return constants.ChainNameOption[chainNameOption] || constants.ChainNameOption['default'];
 }
 
 export const getDerivePath = (algoOption) => {
 
     let derivePath;
 
-    if (algoOption === 1) {
+    if (algoOption === constants.BIP32) {
         derivePath = readline.question("Enter derive path value \n sample format : (m/44/0/0/0/) \n");
     }
     else {
