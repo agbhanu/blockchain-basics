@@ -2,6 +2,7 @@ import { getBitcoinAddressFromPublicKey } from './address/bitcoinAddress'
 import { getEthereumAddressFromPublicKey } from './address/ethereumAddress'
 import { createBitcoinTransaction } from './transaction/bitcoinTransaction';
 import { createEthereumTransaction } from './transaction/etherTransaction';
+import { networks } from 'bitcoinjs-lib'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -18,9 +19,9 @@ export const EXTERNAL = 0;
 export const INTERNAL = 1;
 export const NEW_MNEMONIC = 'New Mnemonic';
 export const EXISTING_MNEMONIC = 'Existing Mnemonic';
-export const ETHEREUM_NETWORK = process.env.BLOCKCHAIN_ENV === "Development" ? 'rinkeby' : 'mainnet'
-export const BITCOIN_NETWORK = process.env.BLOCKCHAIN_ENV === "Development" ? 'testnet' : 'mainnet'
-
+export const ETHEREUM_NETWORK = process.env.BLOCKCHAIN_ENV === "Development" ? 'rinkeby' : 'mainnet';
+export const BITCOIN_NETWORK = process.env.BLOCKCHAIN_ENV === "Development" ? 'testnet' : 'mainnet';
+export const BITCOIN_ADDRESS_NETWORK = process.env.BLOCKCHAIN_ENV === "Development" ? networks.testnet : networks.bitcoin;
 export const MnemonicOption = Object.freeze({
   1: NEW_MNEMONIC,
   2: EXISTING_MNEMONIC,
