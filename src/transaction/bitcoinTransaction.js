@@ -23,7 +23,7 @@ export const createBitcoinTransaction = (senderPrivateKey, senderAddress, receiv
         throw new Error("Amount want to send is too less ( please send more than 600 satoshis)");
       }
 
-      if (!(isValidAddress(senderAddress, 'BTC', 'testnet') && isValidAddress(receiverAddress, 'BTC', 'testnet'))) {
+      if (!(isValidAddress(senderAddress, 'BTC', BITCOIN_NETWORK) && isValidAddress(receiverAddress, 'BTC', BITCOIN_NETWORK))) {
         throw new Error("Sender or reciever address is not valid")
       }
 
