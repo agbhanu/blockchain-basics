@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export const DUST_VALUE = 600;
+export const YES = 'yes';
 export const BITCOIN = 'Bitcoin';
 export const ETHER = 'Ether';
 export const BITCOIN_VALUE = 0;
