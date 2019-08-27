@@ -4,7 +4,7 @@ import * as keyPair from './keyPair'
 import * as userInput from './userInput'
 import { createTransaction } from './transaction'
 import { addAddressInChildKeyPairArray } from './address'
-import { NEW_MNEMONIC, EXISTING_MNEMONIC } from './constants'
+import { NEW_MNEMONIC, EXISTING_MNEMONIC, YES } from './constants'
 
 const entryPoint = async () => {
 
@@ -22,8 +22,12 @@ const entryPoint = async () => {
 
     if (mnemonic.isValidMnemonicOrNot(mnemonicCode)) {
 
+      let passPhrase = '';
+      const passPhraseOption = userInput.getOptionForPassphrase();
+      if (passPhraseOption === YES)
+        passPhrase = userInput.getPassphrase();
       // generate seed
-      const seedKey = seed.generateSeed(mnemonicCode);
+      const seedKey = seed.generateSeed(mnemonicCode, passPhrase);
 
       // generate root/parent key pair
       const parentKeyPair = keyPair.createParentKeyPair(seedKey);
