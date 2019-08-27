@@ -14,14 +14,14 @@ export const getExistingMnemonic = () => {
 }
 
 export const getOptionForPassphrase = () => {
-  const userOption = readline.question("Do you want to add passphrase(y/n) Defualt : yes \n ");
+  const userOption = readline.question("Do you want to add passphrase(y/n) Default : no \n (Defaullt passphrase : '')\n");
   if (userOption === 'y' || userOption === 'Y' || userOption === 'yes' || userOption === 'YES')
     return 'yes';
   return 'no';
 }
 
 export const getPassphrase = () => {
-  const passphrase = readline.question("Enter passphrase : ");
+  const passphrase = readline.question("Enter passphrase: ");
   return passphrase;
 }
 
