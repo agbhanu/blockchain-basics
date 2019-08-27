@@ -4,19 +4,20 @@ import * as keyPair from './keyPair'
 import * as userInput from './userInput'
 import { createTransaction } from './transaction'
 import { addAddressInChildKeyPairArray } from './address'
+import { NEW_MNEMONIC, EXISTING_MNEMONIC } from './constants'
 
 const entryPoint = async () => {
 
     let mnemonicCode;
     const option = userInput.getOptionForMnemonic();
     // Generate new mnemonic
-    if (option === 1) {
+    if (option === NEW_MNEMONIC) {
         mnemonicCode = mnemonic.getMnemonic().toString();
         console.log("Mnemonic created : " + mnemonicCode);
     }
 
     // use exisiting mnemonic
-    else if (option === 2) {
+    else if (option === EXISTING_MNEMONIC) {
         mnemonicCode = userInput.getExistingMnemonic();
 
         if (mnemonic.isValidMnemonicOrNot(mnemonicCode)) {
@@ -32,9 +33,7 @@ const entryPoint = async () => {
             // generate child key pairs
             const childKeyPairArray = keyPair.generateChildKeyPairs(parentKeyPair);
 
-            //console.log(userInput);
             const coinName = userInput.getCoinName();
-            //console.log(coinName);
             // add address property to childKeyPairObject array
             try {
                 const childKeyPairwithAddressArray = addAddressInChildKeyPairArray(coinName, childKeyPairArray);
@@ -48,7 +47,7 @@ const entryPoint = async () => {
                 const txHash = await createTransaction(coinName, senderPrivateKey, senderAddress, receiverAddress);
                 console.log(`transaction created successfully : ${txHash}`);
             } catch (err) {
-                console.log(err);
+                console.log(err.message);
             }
         }
         else {
