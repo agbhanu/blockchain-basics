@@ -4,7 +4,7 @@
   "description": "mnemonic and key pair generation",
   "main": "app.js",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bignumber.js": "^9.0.0",
     "bip32": "^2.0.4",
     "bitcoinjs-lib": "^5.1.3",
